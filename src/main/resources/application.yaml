@@ -11,10 +11,14 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-      properties:
+    properties:
         hibernate:
           dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+
+app:
+  cors:
+    allowed-origins: "http://localhost:3000,https://my-production-domain.com"
 
 jwt:
   signerKey: "1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij"

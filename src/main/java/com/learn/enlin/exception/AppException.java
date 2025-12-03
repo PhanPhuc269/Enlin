@@ -1,19 +1,16 @@
 package com.learn.enlin.exception;
 
-public class AppException extends RuntimeException {
+import lombok.Getter;
+import lombok.Setter;
 
-    public AppException(ErrorCode errorCode) {
-        super(errorCode.getMessage());
-        this.errorCode = errorCode;
-    }
+@Getter
+@Setter
+public class AppException extends RuntimeException {
 
     private ErrorCode errorCode;
 
-    public ErrorCode getErrorCode() {
-        return errorCode;
-    }
-
-    public void setErrorCode(ErrorCode errorCode) {
+    public AppException(ErrorCode errorCode) {
+        super(errorCode.getMessage());
         this.errorCode = errorCode;
     }
 }
