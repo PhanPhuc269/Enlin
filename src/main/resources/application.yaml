@@ -18,7 +18,11 @@ spring:
 
 app:
   cors:
-    allowed-origins: "http://localhost:3000,https://my-production-domain.com"
+    allowed-origins: "http://localhost:8081,https://my-production-domain.com"
 
 jwt:
   signerKey: "1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij"
+
+ai:
+  agent:
+    url: http://localhost:5000/generate

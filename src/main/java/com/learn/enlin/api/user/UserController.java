@@ -1,6 +1,7 @@
 package com.learn.enlin.api.user;
 
 import com.learn.enlin.api.user.dto.request.UserCreationRequest;
+import com.learn.enlin.api.user.dto.request.UserSettingsRequest;
 import com.learn.enlin.api.user.dto.response.UserResponse;
 import com.learn.enlin.api.user.service.UserService;
 import com.learn.enlin.base.ApiResponse;
@@ -23,6 +24,13 @@ public class UserController {
     ApiResponse<UserResponse> createUser(@RequestBody @Valid UserCreationRequest request) {
         return ApiResponse.<UserResponse>builder()
                 .result(userService.createUser(request))
+                .build();
+    }
+
+    @PutMapping("/settings")
+    ApiResponse<UserResponse> updateSettings(@RequestBody UserSettingsRequest request) {
+        return ApiResponse.<UserResponse>builder()
+                .result(userService.updateSettings(request))
                 .build();
     }
 

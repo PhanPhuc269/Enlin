@@ -18,5 +18,8 @@ public class UserResponse {
     String email;
     String phone;
     LocalDate dob;
+    String theme;
+    String nativeLanguage;
+    String targetLevel;
     Set<Role> roles;
 }

@@ -139,7 +139,7 @@ public class AuthenticationService {
                 ))
                 .jwtID(UUID.randomUUID().toString())
                 .claim("scope", buildScope(user))
-                .claim("userId", user.getId())
+                .claim("userId", user.getId().toString())
                 .build();
 
         Payload payload = new Payload(jwtClaimsSet.toJSONObject());

@@ -25,7 +25,7 @@ import java.text.ParseException;
 public class AuthenticationController{
     AuthenticationService authenticationService;
 
-    @PostMapping("/token")
+    @PostMapping("/login")
     ResponseEntity<ApiResponse<AuthenticationResponse>> authenticate(@RequestBody AuthenticationRequest request, HttpServletResponse response){
         var result = authenticationService.authenticate(request);
         // Tạo cookie an toàn

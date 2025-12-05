@@ -2,6 +2,7 @@ package com.learn.enlin.api.user.service;
 
 import com.learn.enlin.enums.Role;
 import com.learn.enlin.api.user.dto.request.UserCreationRequest;
+import com.learn.enlin.api.user.dto.request.UserSettingsRequest;
 import com.learn.enlin.api.user.dto.request.UserUpdateRequest;
 import com.learn.enlin.api.user.dto.response.UserResponse;
 import com.learn.enlin.api.user.entity.User;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -58,7 +60,21 @@ public class UserService {
         return userMapper.toUserResponse(user);
     }
 
-    public UserResponse updateUser(String userId, UserUpdateRequest request) {
+    public UserResponse updateSettings(UserSettingsRequest request) {
+        var context = SecurityContextHolder.getContext();
+        String name = context.getAuthentication().getName();
+
+        User user = userRepository.findByUsername(name).orElseThrow(
+                () -> new AppException(ErrorCode.USER_NOT_EXISTED));
+        
+        if (request.getTheme() != null) user.setTheme(request.getTheme());
+        if (request.getNativeLanguage() != null) user.setNativeLanguage(request.getNativeLanguage());
+        if (request.getTargetLevel() != null) user.setTargetLevel(request.getTargetLevel());
+        
+        return userMapper.toUserResponse(userRepository.save(user));
+    }
+
+    public UserResponse updateUser(UUID userId, UserUpdateRequest request) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED));
 
@@ -71,7 +87,7 @@ public class UserService {
         return userMapper.toUserResponse(userRepository.save(user));
     }
 
-    public void deleteUser(String userId){
+    public void deleteUser(UUID userId){
         userRepository.deleteById(userId);
     }
 
@@ -83,7 +99,7 @@ public class UserService {
     }
 
     @PostAuthorize("returnObject.username == authentication.name")
-    public UserResponse getUser(String id){
+    public UserResponse getUser(UUID id){
         log.info("In method get user by Id");
         return userMapper.toUserResponse(userRepository.findById(id)
                 .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_EXISTED)));

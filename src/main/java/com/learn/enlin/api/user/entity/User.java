@@ -8,6 +8,8 @@ import lombok.experimental.FieldDefaults;
 import java.time.LocalDate;
 import java.util.Set;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Builder
@@ -19,7 +21,7 @@ import java.util.Set;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    String id;
+    UUID id;
     String username;
     String password;
     String name;
@@ -30,6 +32,18 @@ public class User {
     @Column(unique = true)
     String phone;
     LocalDate dob;
+    
+    String theme;
+    @Column(name = "native_language")
+    String nativeLanguage;
+    @Column(name = "target_level")
+    String targetLevel;
+    
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "users_roles",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_name")
+    )
     Set<Role> roles;
 }
