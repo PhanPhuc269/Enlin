@@ -18,11 +18,11 @@ spring:
 
 app:
   cors:
-    allowed-origins: "http://localhost:8081,https://my-production-domain.com"
+    allowed-origins: ${SPRING_CORS_ALLOWED_ORIGINS:http://localhost:8081}
 
 jwt:
-  signerKey: "1TjXchw5FloESb63Kc+DFhTARvpWL4jUGCwfGWxuG5SIf/1y/LgJxHnMqaF6A/ij"
+  signerKey: ${SPRING_JWT_SIGNER_KEY:default-signing-key}
 
 ai:
   agent:
-    url: http://localhost:5000/generate
+    url: ${SPRING_AI_AGENT_URL:http://localhost:5000/generate}
